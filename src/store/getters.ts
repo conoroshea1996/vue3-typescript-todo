@@ -1,16 +1,12 @@
 import { GetterTree } from 'vuex'
-import { State } from './state'
+import { State, TodoItem } from './state'
 
 export type Getters = {
-  completedCount(state: State): number
-  totalCount(state: State): number
+  filterTodoItems(state: State): Array<TodoItem>
 }
 
 export const getters: GetterTree<State, State> & Getters = {
-  completedCount(state) {
-    return state.items.filter(i => i.completed).length
-  },
-  totalCount(state) {
-    return state.items.length
+  filterTodoItems(state) {
+    return state.items.filter(i => i.title.includes(state.filter))
   }
 }

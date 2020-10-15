@@ -1,6 +1,6 @@
 import { ActionContext, ActionTree } from 'vuex'
 import { Mutations, MutationType } from './mutations'
-import { State } from './state'
+import { State, TodoItem } from './state'
 
 export enum ActionTypes {
   GetTodoItems = 'GET_ITEMS'
@@ -17,21 +17,14 @@ export type Actions = {
   [ActionTypes.GetTodoItems](context: ActionAugments): void
 }
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
 export const actions: ActionTree<State, State> & Actions = {
   async [ActionTypes.GetTodoItems]({ commit }) {
     commit(MutationType.SetLoading, true)
 
-    await sleep(1000)
-
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+    const data: Array<TodoItem> = await response.json()
+    console.log(data)
     commit(MutationType.SetLoading, false)
-    commit(MutationType.SetItems, [
-      {
-        id: 1,
-        text: 'Create awesome Vue 3 with Vuex 4 video!',
-        completed: false
-      }
-    ])
+    commit(MutationType.SetItems, data)
   }
 }

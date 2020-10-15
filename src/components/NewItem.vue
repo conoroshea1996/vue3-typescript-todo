@@ -13,9 +13,7 @@
         <button
           type="submit"
           class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded"
-        >
-          Add
-        </button>
+        >Add</button>
       </div>
     </div>
   </form>
@@ -38,8 +36,9 @@ export default defineComponent({
 
       const item: TodoItem = {
         id: Date.now(),
-        text: text.value,
-        completed: false
+        title: text.value,
+        completed: false,
+        userId: 1
       }
       store.commit(MutationType.CreateItem, item)
       text.value = ''

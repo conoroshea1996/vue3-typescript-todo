@@ -1,15 +1,22 @@
 export type TodoItem = {
   id: number
-  text: string
+  title: string
   completed: boolean
+  userId: number
 }
 
 export type State = {
   loading: boolean
+  allItems: TodoItem[]
   items: TodoItem[]
+  filter: string
+  activeTodos: boolean
 }
 
 export const state: State = {
   loading: false,
-  items: []
+  allItems: [],
+  items: [],
+  filter: '',
+  activeTodos: false
 }

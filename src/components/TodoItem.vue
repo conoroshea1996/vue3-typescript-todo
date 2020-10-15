@@ -4,14 +4,10 @@
     :class="completed ? 'border-green-500' : 'border-white'"
   >
     <div class="flex-shrink-0 m-1 ml-3 align-middle">
-      <input
-        type="checkbox"
-        :checked="completed"
-        @change="toggleCompletion()"
-      />
+      <input type="checkbox" :checked="completed" @change="toggleCompletion()" />
     </div>
     <div class="ml-6">
-      <h4 class="text-xl text-gray-900 leading-tight">{{ text }}</h4>
+      <h4 class="text-xl text-gray-900 leading-tight">{{ title }}</h4>
     </div>
   </div>
 </template>
@@ -25,7 +21,7 @@ import { MutationType } from '@/store/mutations'
 export default defineComponent({
   props: {
     id: { type: Number, required: true },
-    text: { type: String, required: true },
+    title: { type: String, required: true },
     completed: { type: Boolean, required: true }
   },
   setup(props) {

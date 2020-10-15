@@ -14,8 +14,10 @@ export default defineComponent({
     const loading = computed(() => store.state.loading)
     onMounted(() => store.dispatch(ActionTypes.GetTodoItems))
 
-    const completedCount = computed(() => store.getters.completedCount)
-    const totalCount = computed(() => store.getters.totalCount)
+    const completedCount = computed(
+      () => store.getters.filterTodoItems.filter(i => i.completed).length
+    )
+    const totalCount = computed(() => store.getters.filterTodoItems.length)
 
     return { loading, completedCount, totalCount }
   }
@@ -24,17 +26,13 @@ export default defineComponent({
 
 <template>
   <div class="container mx-auto mt-4">
-    <h1 class="text-3xl text-center p-2 font-bold">
-      Vue 3 Todo App with Typescript and Vuex 4
-    </h1>
+    <h1 class="text-3xl text-center p-2 font-bold">Vue 3 Todo App with Typescript and Vuex 4</h1>
 
     <div v-if="loading">
       <h3 class="text-center mt-4">Loading...</h3>
     </div>
     <div v-else>
-      <p class="text-center mt-2">
-        {{ completedCount }} of {{ totalCount }} completed.
-      </p>
+      <p class="text-center mt-2">{{ completedCount }} of {{ totalCount }} completed.</p>
       <NewItem />
       <TodoList />
     </div>
